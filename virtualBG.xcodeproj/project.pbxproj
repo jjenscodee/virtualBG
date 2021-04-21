@@ -14,6 +14,8 @@
 		B45104AF260CB853000C427C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B45104AE260CB853000C427C /* Assets.xcassets */; };
 		B45104B2260CB853000C427C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B45104B0260CB853000C427C /* LaunchScreen.storyboard */; };
 		B451050D2611D887000C427C /* DepthStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = B451050C2611D887000C427C /* DepthStream.swift */; };
+		B49F4C8F262DCB5500548A84 /* DepthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49F4C8E262DCB5500548A84 /* DepthFilter.swift */; };
+		B49F4C93262DD44100548A84 /* BGglobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49F4C92262DD44100548A84 /* BGglobal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		B45104B1260CB853000C427C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B45104B3260CB853000C427C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B451050C2611D887000C427C /* DepthStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthStream.swift; sourceTree = "<group>"; };
+		B49F4C8E262DCB5500548A84 /* DepthFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthFilter.swift; sourceTree = "<group>"; };
+		B49F4C92262DD44100548A84 /* BGglobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGglobal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				B45104A9260CB852000C427C /* GetPhoto.swift */,
 				B45104AB260CB852000C427C /* Main.storyboard */,
 				B451050C2611D887000C427C /* DepthStream.swift */,
+				B49F4C92262DD44100548A84 /* BGglobal.swift */,
+				B49F4C8E262DCB5500548A84 /* DepthFilter.swift */,
 				B45104AE260CB853000C427C /* Assets.xcassets */,
 				B45104B0260CB853000C427C /* LaunchScreen.storyboard */,
 				B45104B3260CB853000C427C /* Info.plist */,
@@ -143,7 +149,9 @@
 				B45104AA260CB852000C427C /* GetPhoto.swift in Sources */,
 				B451050D2611D887000C427C /* DepthStream.swift in Sources */,
 				B45104A6260CB852000C427C /* AppDelegate.swift in Sources */,
+				B49F4C8F262DCB5500548A84 /* DepthFilter.swift in Sources */,
 				B45104A8260CB852000C427C /* SceneDelegate.swift in Sources */,
+				B49F4C93262DD44100548A84 /* BGglobal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

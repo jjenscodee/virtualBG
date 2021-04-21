@@ -35,6 +35,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate,
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.contentMode = .scaleAspectFit
             imageView.image = pickedImage
+            BG.background = pickedImage
         }
 
         dismiss(animated: true, completion: nil)
@@ -43,4 +44,5 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
 }

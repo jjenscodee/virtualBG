@@ -23,8 +23,9 @@ class DepthVideoViewController: UIViewController {
                                       autoreleaseFrequency: .workItem)
   
   var depthMap: CIImage?
-  var mask: CIImage?
+  var depthFilters = DepthFilters()
 
+    
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -96,15 +97,20 @@ extension DepthVideoViewController {
 extension DepthVideoViewController: AVCaptureDataOutputSynchronizerDelegate{
     func dataOutputSynchronizer(_ synchronizer: AVCaptureDataOutputSynchronizer, didOutput synchronizedDataCollection: AVCaptureSynchronizedDataCollection) {
         
-        guard let syncedDepthData: AVCaptureSynchronizedDepthData = synchronizedDataCollection.synchronizedData(for: depthOutput) as? AVCaptureSynchronizedDepthData, let syncedVideoData: AVCaptureSynchronizedSampleBufferData = synchronizedDataCollection.synchronizedData(for: videoOutput) as? AVCaptureSynchronizedSampleBufferData else {
+        guard let syncedDepthData: AVCaptureSynchronizedDepthData = synchronizedDataCollection.synchronizedData(for: depthOutput) as? AVCaptureSynchronizedDepthData,
+        let syncedVideoData: AVCaptureSynchronizedSampleBufferData = synchronizedDataCollection.synchronizedData(for: videoOutput) as? AVCaptureSynchronizedSampleBufferData else {
                     print("Could not get data from synchronizedDataCollection")
                     return
                 }
-
+        
+        // video to image
+        let sampleBuffer = syncedVideoData.sampleBuffer
+        let videoPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+        let image = CIImage(cvPixelBuffer: videoPixelBuffer!)
+        
+        // depth map
         let depthData = syncedDepthData.depthData
-
         var convertedDepth: AVDepthData
-
         let depthDataType = kCVPixelFormatType_DisparityFloat32
         if depthData.depthDataType != depthDataType {
           convertedDepth = depthData.converting(toDepthDataType: depthDataType)
@@ -112,13 +118,22 @@ extension DepthVideoViewController: AVCaptureDataOutputSynchronizerDelegate{
           convertedDepth = depthData
         }
         let pixelBuffer = convertedDepth.depthDataMap
-
         let depthMap = CIImage(cvPixelBuffer: pixelBuffer)
-
-        //print(depthData,depthData.depthDataMap)
-
+        //print(depthMap)
+        //print()
+        
+        // get background
+        let background: CIImage! = CIImage(image: BG.background!)
+        
+        // create mask
+        let masks = depthFilters.createMask(for: depthMap,
+                                               isSharp: false)
+        
+        // get filtered image
         let previewImage: CIImage
-        previewImage = depthMap
+        previewImage = depthFilters.virtualBG(image: image,
+                                                background: background,
+                                                mask: masks)
         let displayImage = UIImage(ciImage: previewImage)
         
         DispatchQueue.main.async { [weak self] in
