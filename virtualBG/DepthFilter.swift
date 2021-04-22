@@ -22,7 +22,7 @@ class DepthFilters {
         "inputRVector": CIVector(x: 4, y: 0, z: 0, w: 0),
         "inputGVector": CIVector(x: 0, y: 4, z: 0, w: 0),
         "inputBVector": CIVector(x: 0, y: 0, z: 4, w: 0),
-        "inputBiasVector": CIVector(x: b, y: b, z: b, w: 0)
+        "inputBiasVector": CIVector(x: b-1.2, y: b-1.2, z: b-1.2, w: 0)
       ])
       .applyingFilter("CIColorClamp")   //set value between 0 to 1
       .applyingFilter("CIBicubicScaleTransform", parameters: [

@@ -42,7 +42,7 @@ extension DepthVideoViewController {
     }
 
     session.sessionPreset = .photo
-
+    
     do {
       let cameraInput = try AVCaptureDeviceInput(device: camera)
       session.addInput(cameraInput)
@@ -69,7 +69,7 @@ extension DepthVideoViewController {
     let depthConnection = depthOutput.connection(with: .depthData)
     depthConnection?.videoOrientation = .portrait
 
-    
+    // Search for highest resolution with half-point depth values
     let depthFormats = camera.activeFormat.supportedDepthDataFormats
     let filtered = depthFormats.filter({
         CMFormatDescriptionGetMediaSubType($0.formatDescription) == kCVPixelFormatType_DepthFloat16
@@ -90,6 +90,8 @@ extension DepthVideoViewController {
     
     dataOutputSynchronizer = AVCaptureDataOutputSynchronizer(dataOutputs: [videoOutput, depthOutput])
     dataOutputSynchronizer.setDelegate(self, queue: dataOutputQueue)
+    
+    //session.commitConfiguration()
 
   }
 }
@@ -103,10 +105,10 @@ extension DepthVideoViewController: AVCaptureDataOutputSynchronizerDelegate{
                     return
                 }
         
-        // video to image
-        let sampleBuffer = syncedVideoData.sampleBuffer
-        let videoPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        let image = CIImage(cvPixelBuffer: videoPixelBuffer!)
+        if syncedDepthData.depthDataWasDropped || syncedVideoData.sampleBufferWasDropped {
+            return
+        }
+        
         
         // depth map
         let depthData = syncedDepthData.depthData
@@ -121,6 +123,13 @@ extension DepthVideoViewController: AVCaptureDataOutputSynchronizerDelegate{
         let depthMap = CIImage(cvPixelBuffer: pixelBuffer)
         //print(depthMap)
         //print()
+        
+        // video to image
+        let sampleBuffer = syncedVideoData.sampleBuffer
+        guard let videoPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+                return
+        }
+        let image = CIImage(cvPixelBuffer: videoPixelBuffer)
         
         // get background
         let background: CIImage! = CIImage(image: BG.background!)
