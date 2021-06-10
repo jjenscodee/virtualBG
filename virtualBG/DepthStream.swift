@@ -227,7 +227,7 @@ extension DepthVideoViewController: AVCaptureDataOutputSynchronizerDelegate{
         let depthData = syncedDepthData.depthData
         var convertedDepth: AVDepthData
         // get disparity
-        let depthDataType = kCVPixelFormatType_DepthFloat32
+        let depthDataType = kCVPixelFormatType_DisparityFloat32
         if depthData.depthDataType != depthDataType {
           convertedDepth = depthData.converting(toDepthDataType: depthDataType)
         } else {
