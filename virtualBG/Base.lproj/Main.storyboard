@@ -20,13 +20,35 @@
                                 <rect key="frame" x="63" y="44" width="709" height="1085"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-255" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="xQc-kJ-t0M">
+                                <rect key="frame" x="181" y="1057" width="472" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="slider:" destination="BYZ-38-t0r" eventType="valueChanged" id="TRt-A8-N8k"/>
+                                </connections>
+                            </slider>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Automatic Adjust" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pAg-bH-bAN">
+                                <rect key="frame" x="620" y="71" width="138" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kC7-n7-Hvf">
+                                <rect key="frame" x="666" y="113" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switchDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="8Mn-LY-lvv"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5Jq-Ux-zZp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="DepthCamera" image="camera.fill" catalog="system" selectedImage="camera.fill" id="nqD-mf-kHI" userLabel="DepthCamera"/>
                     <connections>
+                        <outlet property="mySwitch" destination="kC7-n7-Hvf" id="umM-dN-CqP"/>
                         <outlet property="previewView" destination="unj-RN-HGu" id="R5P-2s-Cyy"/>
+                        <outlet property="sliderVal" destination="xQc-kJ-t0M" id="Emv-Zg-Uiu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
